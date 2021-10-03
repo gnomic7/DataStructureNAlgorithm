@@ -16,9 +16,15 @@ This repo is used to understand various data structures and algorithms - Besides
 
 ## How To Run Locally
 
+### For ESNext
+
 `git clone git@github.com:gnomic7/DataStructureNAlgorithm.git` into your local file system.
 `cd ESNext && node .` - should display the existing Linked list and a few other values for search and insert
 
 Update the `index.js` and try `append`ing, `search`ing for any values.
+
+### For Rust
+
+Coming soon!
 
 ## Happy Coding!
