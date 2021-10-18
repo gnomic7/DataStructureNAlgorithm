@@ -13,15 +13,4 @@ const generateAdjacencyList = (edges) => {
   return graph;
 };
 
-const edges = [
-  ['a', 'b'],
-  ['a', 'c'],
-  ['b', 'd'],
-  ['c', 'e'],
-  ['d', 'f'],
-  ['e'],
-  ['f'],
-  [, 'g'],
-];
-
-console.log(generateAdjacencyList(edges));
+module.exports = generateAdjacencyList;

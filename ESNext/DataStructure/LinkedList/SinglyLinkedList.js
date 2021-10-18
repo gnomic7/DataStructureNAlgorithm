@@ -11,10 +11,18 @@ class Node {
 module.exports = class LinkedList {
   constructor(data) {
     this.head = new Node(data);
-    this.tail;
+  }
+
+  contains(val) {
+    return this.#_contains(val, this.head.nextNode);
+  }
+  #_contains(val, curr) {
+    if (!curr) return false;
+    if (curr.data === val) return true;
+    return this.#_contains(val, curr.nextNode);
   }
   /**
-   * Returns true if the value exists and visa-versa
+   * Returns the node or null
    * Takes O(n) time as it has to traverse the entire list
    *
    * @param {int} value value to search for in the linkedlist
@@ -30,15 +38,33 @@ module.exports = class LinkedList {
   }
 
   /**
-   * Appends a new head and make the head.nextNode point to the previous head
+   * Prepends a new head and make the head.nextNode point to the previous head
    * Takes O(1) time - as it doesn't have to traverse anything
    *
    * @param {int} data value to add to the head of the linkedList
    */
-  append(data) {
+  prepend(data) {
     const newNode = new Node(data);
     newNode.nextNode = this.head;
     this.head = newNode;
+  }
+  /**
+   * Appends a new node to the tail of the node
+   * Takes O(n) time - as it traverse the entire list for the worst case
+   *
+   *
+   * @param {int} data value to append to the tail of the linkedList
+   */
+  append(data) {
+    let curr = this.head;
+    if (!curr.nextNode) {
+      curr.nextNode = new Node(data);
+      return;
+    }
+    while (curr.nextNode) {
+      curr = curr.nextNode;
+    }
+    curr.nextNode = new Node(data);
   }
 
   /**
@@ -51,7 +77,7 @@ module.exports = class LinkedList {
    * @returns void
    */
   insert(data, position) {
-    if (position === 0) return this.add(data);
+    if (position === 0) return this.prepend(data);
     let current = this.head;
     let idx = 1;
     while (current) {
@@ -65,6 +91,33 @@ module.exports = class LinkedList {
       current = current.nextNode;
       idx++;
     }
+  }
+
+  /**
+   * Removes a node - releases the pointer to any other nodes, if the node exists
+   * GC would later remove it from the memory.
+   * The prev and curr maints the states of the link
+   *
+   * Removing/Updating the connection takes O(1) but finding the correct  node
+   * takes O(n) time. Hence the overall time complexity is O(n)
+   * Since each of the recursive functions occupy space in the call stack
+   * the space complexity is O(n) as well
+   *
+   * @param {int} data value to delete
+   * @returns
+   */
+  remove(data) {
+    return this.#_remove(data);
+  }
+
+  #_remove(data, curr = this.head, prev = new Node(null)) {
+    if (!curr) return null;
+
+    if (curr.data === data) {
+      prev.nextNode = curr.nextNode;
+    }
+    prev = curr;
+    return this.#_remove(data, curr.nextNode, prev);
   }
 
   size() {
@@ -98,5 +151,12 @@ module.exports = class LinkedList {
       current = current.nextNode;
     }
     return store;
+  }
+  print() {
+    return this.#_print(this.head);
+  }
+  #_print(curr) {
+    if (!curr) return '';
+    return `${curr.data} -> ${this.#_print(curr.nextNode)}`;
   }
 };

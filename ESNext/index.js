@@ -2,18 +2,29 @@ const LinkedList = require('./DataStructure/LinkedList/SinglyLinkedList');
 const { fact, factMemo } = require('./Algorithms/factorial');
 const { linearSearch } = require('./Algorithms/Searching/linearSearch');
 const { quickSort } = require('./Algorithms/Sorting/quickSort');
+const sumOfLinkedList = (list) => {
+  if (!list) return 0;
+  return list.data + sumOfLinkedList(list.nextNode);
+};
 const useLinkedList = () => {
   const ll = new LinkedList(10);
   ll.append(20);
-  ll.append(30);
+  ll.prepend(30);
   ll.append(50);
-  ll.append(100);
-  ll.append(200);
+  ll.prepend(100);
+  ll.prepend(200);
   ll.insert(25, 5);
+  ll.prepend(205);
+  console.log(ll.contains(100));
+  console.log(ll.contains(101));
   console.log(ll.prettyPrint());
   console.log(ll.size());
   console.log(ll.search(50));
-  console.log(ll.search(51));
+  console.log(ll.search(5));
+  ll.print();
+  console.log(sumOfLinkedList(ll.head));
+  ll.remove(30);
+  console.log(ll.prettyPrint());
 };
 
 const useFactorial = () => {
@@ -49,8 +60,8 @@ const useSearching = (algo, target) => {
 // Comment the following line - if LinkedList is not inteded to run
 useLinkedList();
 // Comment the following line - if Factorial algorithm is not intended to run
-userFactorial();
+// userFactorial();
 // Comment the following line - to not run search
-useSearching('linearSearch', 10);
+// useSearching('linearSearch', 10);
 // Comment the following line - to not run sorting
-useSorting('quickSort');
+// useSorting('quickSort');
