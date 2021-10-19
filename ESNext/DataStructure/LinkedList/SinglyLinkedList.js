@@ -107,16 +107,21 @@ module.exports = class LinkedList {
    * @returns
    */
   remove(data) {
-    return this.#_remove(data);
+    this.head = this.#_remove(data);
   }
 
   #_remove(data, curr = this.head, prev = new Node(null)) {
-    if (!curr) return null;
+    // If this is a head node - return the nextNode of the head
+    if (this.head.data === data) {
+      return this.head.nextNode;
+    }
 
+    if (!curr) return null;
     if (curr.data === data) {
       prev.nextNode = curr.nextNode;
+    } else {
+      prev = curr;
     }
-    prev = curr;
     return this.#_remove(data, curr.nextNode, prev);
   }
 

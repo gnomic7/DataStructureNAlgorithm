@@ -23,7 +23,7 @@ const useLinkedList = () => {
   console.log(ll.search(5));
   ll.print();
   console.log(sumOfLinkedList(ll.head));
-  ll.remove(30);
+  ll.remove(205);
   console.log(ll.prettyPrint());
 };
 
