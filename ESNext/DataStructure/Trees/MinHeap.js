@@ -30,6 +30,12 @@ class MinHeap {
     this.bubbleDown(index);
   }
 
+  swap(index1, index2) {
+    const temp = this.heap[index1];
+    this.heap[index1] = this.heap[index2];
+    this.heap[index2] = temp;
+  }
+
   /**
    * @param {*} index
    * @memberof MinHeap
