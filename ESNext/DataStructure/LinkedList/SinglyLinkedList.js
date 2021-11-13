@@ -4,11 +4,16 @@ class Node {
     this.nextNode = null;
   }
   prettyPrint() {
-    return `Data: ${this.data}`;
+    return this.#_print(this);
+  }
+
+  #_print(curr) {
+    if (!curr) return '';
+    return `${curr.data} -> ${this.#_print(curr.nextNode)}`;
   }
 }
 
-module.exports = class LinkedList {
+class LinkedList {
   constructor(data) {
     this.head = new Node(data);
   }
@@ -107,22 +112,20 @@ module.exports = class LinkedList {
    * @returns
    */
   remove(data) {
-    this.head = this.#_remove(data);
+    // If this is a head node - return the nextNode of the head
+    if (this.head.data === data) {
+      this.head = this.head.nextNode;
+    } else {
+      this.#_remove(data);
+    }
   }
 
   #_remove(data, curr = this.head, prev = new Node(null)) {
-    // If this is a head node - return the nextNode of the head
-    if (this.head.data === data) {
-      return this.head.nextNode;
-    }
-
     if (!curr) return null;
     if (curr.data === data) {
       prev.nextNode = curr.nextNode;
-    } else {
-      prev = curr;
     }
-    return this.#_remove(data, curr.nextNode, prev);
+    this.#_remove(data, curr.nextNode, curr);
   }
 
   size() {
@@ -145,6 +148,7 @@ module.exports = class LinkedList {
    */
   prettyPrint() {
     let current = this.head;
+    if (!current) return;
     let store = `Head: ${current.data}`;
     while (current) {
       if (current.nextNode === null) {
@@ -164,4 +168,9 @@ module.exports = class LinkedList {
     if (!curr) return '';
     return `${curr.data} -> ${this.#_print(curr.nextNode)}`;
   }
+}
+
+module.exports = {
+  Node,
+  LinkedList,
 };

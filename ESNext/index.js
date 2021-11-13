@@ -1,4 +1,4 @@
-const LinkedList = require('./DataStructure/LinkedList/SinglyLinkedList');
+const { LinkedList } = require('./DataStructure/LinkedList/SinglyLinkedList');
 const { fact, factMemo } = require('./Algorithms/factorial');
 const { linearSearch } = require('./Algorithms/Searching/linearSearch');
 const { quickSort } = require('./Algorithms/Sorting/quickSort');
@@ -24,6 +24,7 @@ const useLinkedList = () => {
   ll.print();
   console.log(sumOfLinkedList(ll.head));
   ll.remove(205);
+  ll.remove(50);
   console.log(ll.prettyPrint());
 };
 

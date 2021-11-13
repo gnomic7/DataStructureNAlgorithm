@@ -14,7 +14,6 @@ const quickSort = (collection) => {
 
   const l = quickSort(left_half);
   const r = quickSort(right_half);
-  // return []
   return [...l, pivot, ...r];
   //   Get all the values greater than the pivot to the right
   //   Continue doing this until the size of the left/right is down to 1
