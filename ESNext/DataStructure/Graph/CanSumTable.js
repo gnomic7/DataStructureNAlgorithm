@@ -10,6 +10,7 @@ const canSum = (targetSum, numbers) => {
   }
   return table[targetSum];
 };
+
 // Try BestSum - by picking the best pair/groups
 
 // Try CountSum - by adding [] at position 0
